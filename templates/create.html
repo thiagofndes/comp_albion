@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Criar Nova Comp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 10px;
+    }
+
+    .form-box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .btn {
+      background-color: #4a4a6a;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #6a6a8a;
+    }
+
+    .btn-voltar {
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .jogador {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .jogador h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="{{ url_for('index') }}" class="btn-voltar">⬅️ Voltar para COMPs</a>
+    <h2>➕ Criar Nova Comp</h2>
+
+    <form method="POST">
+      <div class="form-box">
+        <label for="nome">Nome da Comp</label>
+        <input type="text" name="nome" required>
+
+        <label for="qtde">Quantidade de Jogadores</label>
+        <input type="number" name="qtde" id="qtde" min="1" max="20" required oninput="gerarCampos()">
+
+        <div id="campos-jogadores"></div>
+
+        <button type="submit" class="btn">✅ Criar Comp</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const itens = {{ itens|tojson }};
+    const roles = {{ roles|tojson }};
+
+    function gerarSelect(nomeCampo, filtro) {
+      let html = `<select name="${nomeCampo}" required>`;
+      for (let nome in itens) {
+        if (!filtro || itens[nome].includes(filtro)) {
+          html += `<option value="${nome}">${nome}</option>`;
+        }
+      }
+      html += `</select>`;
+      return html;
+    }
+
+    function gerarCampos() {
+      const qtde = parseInt(document.getElementById("qtde").value);
+      const container = document.getElementById("campos-jogadores");
+      container.innerHTML = "";
+
+      if (isNaN(qtde) || qtde < 1) return;
+
+      for (let i = 0; i < qtde; i++) {
+        const div = document.createElement("div");
+        div.className = "jogador";
+        div.innerHTML = `
+          <h3>Jogador ${i + 1}</h3>
+          <label>Função</label>
+          <select name="role_${i}">
+            ${roles.map(r => `<option value="${r}">${r}</option>`).join("")}
+          </select>
+
+          <label>Arma</label>
+          ${gerarSelect(`arma_${i}`, "2H")}
+
+          <label>Capuz</label>
+          ${gerarSelect(`capuz_${i}`, "HEAD")}
+
+          <label>Peito</label>
+          ${gerarSelect(`peito_${i}`, "ARMOR")}
+
+          <label>Bota</label>
+          ${gerarSelect(`bota_${i}`, "SHOES")}
+
+          <label>Capa</label>
+          ${gerarSelect(`capa_${i}`, "CAPE")}
+
+          <label>Comida</label>
+          ${gerarSelect(`comida_${i}`, "MEAL")}
+
+          <label>Poção</label>
+          ${gerarSelect(`pocao_${i}`, "POTION")}
+        `;
+        container.appendChild(div);
+      }
+    }
+  </script>
+</body>
+</html>

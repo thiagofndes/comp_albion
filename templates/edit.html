@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="{{ idioma }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ texts.edit }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 10px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .jogador {
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .btn {
+      background-color: #4a4a6a;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover {
+      background-color: #6a6a8a;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <h2>{{ texts.edit_title.format(comp=nome, num=comp['qtde_jogadores']) }}</h2>
+      <form method="POST">
+        <input type="hidden" name="delete" value="1">
+        <button type="submit" class="btn">{{ texts.delete }}</button>
+      </form>
+    </div>
+
+    <form method="POST">
+      {% for i in range(comp["qtde_jogadores"]) %}
+        {% set p = comp["players"][i] %}
+        <div class="jogador">
+          <h3>Jogador {{ i + 1 }}</h3>
+
+          <label>Função</label>
+          <select name="role_{{ i }}">
+            {% for r in roles %}
+              <option value="{{ r }}" {% if r == p['Role'] %}selected{% endif %}>{{ r }}</option>
+            {% endfor %}
+          </select>
+
+          <label>Arma</label>
+          <select name="arma_{{ i }}">
+            {% for nome in itens.keys() %}
+              {% if '2H' in itens[nome] or 'MAIN' in itens[nome] %}
+                <option value="{{ nome }}" {% if nome == p['Arma'] %}selected{% endif %}>{{ nome }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          <label>Capuz</label>
+          <select name="capuz_{{ i }}">
+            {% for nome in itens.keys() %}
+              {% if 'HEAD' in itens[nome] %}
+                <option value="{{ nome }}" {% if nome == p['Capuz'] %}selected{% endif %}>{{ nome }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          <label>Peito</label>
+          <select name="peito_{{ i }}">
+            {% for nome in itens.keys() %}
+              {% if 'ARMOR' in itens[nome] %}
+                <option value="{{ nome }}" {% if nome == p['Peito'] %}selected{% endif %}>{{ nome }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          <label>Bota</label>
+          <select name="bota_{{ i }}">
+            {% for nome in itens.keys() %}
+              {% if 'SHOES' in itens[nome] %}
+                <option value="{{ nome }}" {% if nome == p['Bota'] %}selected{% endif %}>{{ nome }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          <label>Capa</label>
+          <select name="capa_{{ i }}">
+            {% for nome in itens.keys() %}
+              {% if 'CAPE' in itens[nome] %}
+                <option value="{{ nome }}" {% if nome == p['Capa'] %}selected{% endif %}>{{ nome }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          <label>Comida</label>
+          <select name="comida_{{ i }}">
+            {% for nome in itens.keys() %}
+              {% if 'MEAL' in itens[nome] %}
+                <option value="{{ nome }}" {% if nome == p['Comida'] %}selected{% endif %}>{{ nome }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          <label>Poção</label>
+          <select name="pocao_{{ i }}">
+            {% for nome in itens.keys() %}
+              {% if 'POTION' in itens[nome] %}
+                <option value="{{ nome }}" {% if nome == p['Poção'] %}selected{% endif %}>{{ nome }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="btn">{{ texts.save }}</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+    "Teste": {
+        "qtde_jogadores": 3,
+        "players": [
+            {
+                "Role": "TANK",
+                "Arma": "Adaga do Mestre",
+                "Capuz": null,
+                "Peito": null,
+                "Bota": null,
+                "Capa": null,
+                "Comida": null,
+                "Poção": null
+            },
+            {
+                "Role": "TANK",
+                "Arma": "Adaga do Mestre",
+                "Capuz": null,
+                "Peito": null,
+                "Bota": null,
+                "Capa": null,
+                "Comida": null,
+                "Poção": null
+            },
+            {
+                "Role": "TANK",
+                "Arma": "Adaga do Mestre",
+                "Capuz": null,
+                "Peito": null,
+                "Bota": null,
+                "Capa": null,
+                "Comida": null,
+                "Poção": null
+            }
+        ]
+    },
+    "werwer": {
+        "qtde_jogadores": 2,
+        "players": [
+            {
+                "Role": "TANK",
+                "Arma": "2H Naturestaff Hell",
+                "Capuz": "Head Gatherer Fish",
+                "Peito": "Armor Cloth Morgana",
+                "Bota": "Shoes Cloth Avalon",
+                "Capa": "Capeitem Fw Bridgewatch",
+                "Comida": "Meal Omelette Fish",
+                "Poção": "Unique Focuspotion Adc Nontradable 01"
+            },
+            {
+                "Role": "TANK",
+                "Arma": "2H Naturestaff Hell",
+                "Capuz": "Head Gatherer Fish",
+                "Peito": "Armor Cloth Morgana",
+                "Bota": "Shoes Cloth Avalon",
+                "Capa": "Capeitem Fw Bridgewatch",
+                "Comida": "Meal Omelette Fish",
+                "Poção": "Unique Focuspotion Adc Nontradable 01"
+            }
+        ]
+    }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="{{ idioma }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ nome }} - Visualização</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 10px;
+    }
+
+    .btn-voltar {
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .comp-box {
+      margin-bottom: 30px;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: white;
+    }
+
+    .player-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 10px;
+      justify-content: center;
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .slot img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      background-color: #ddd;
+      border-radius: 6px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .funcao {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="{{ url_for('index') }}" class="btn-voltar">⬅️ {{ texts.edit_select }}</a>
+    <h2>{{ texts.edit_title.format(comp=nome, num=comp['qtde_jogadores']) }}</h2>
+
+    {% for i in range(comp["qtde_jogadores"]) %}
+      {% set p = comp["players"][i] %}
+      <div class="comp-box">
+        <div class="funcao" style="color: {{ colors.get(p['Role'], '#000') }}">{{ p["Role"] }}</div>
+
+        <div class="player-grid">
+          <!-- Linha 1 -->
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/{{ itens.get(p['Capa'], '') }}.png"></div>
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/{{ itens.get(p['Capuz'], '') }}.png"></div>
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/{{ itens.get(p['Capa'], '') }}.png"></div>
+
+          <!-- Linha 2 -->
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/{{ itens.get(p['Arma'], '') }}.png"></div>
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/{{ itens.get(p['Peito'], '') }}.png"></div>
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/{{ itens.get(p['Comida'], '') }}.png"></div>
+
+          <!-- Linha 3 -->
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/{{ itens.get(p['Poção'], '') }}.png"></div>
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/{{ itens.get(p['Bota'], '') }}.png"></div>
+          <div class="slot"><img src="https://render.albiononline.com/v1/item/slot_vazio.png"></div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
